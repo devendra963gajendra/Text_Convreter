@@ -14,17 +14,31 @@ import Alert from './Components/Alert';
 
 function App() {
 
-  const [Mode, setMode] = useState('light')
+ const [Mode, setMode] = useState('light')
+  const [alert, setAlert] = useState(null);
 
-  const toogleMode = () => {
+  const showAlert = (messege, type) => {
+    setAlert({
+      msg: messege,
+      Type: type
+    })
+
+    setTimeout(() => {
+      setAlert("null");
+    }, 2000);
+  }
+  
+    const toogleMode = () => {
     if (Mode === 'light') {
       setMode("dark");
       document.body.style.backgroundColor = '#042b64';
+      showAlert("darks mode enabled", 'success')
     }
 
     else {
       setMode("light");
       document.body.style.backgroundColor = 'white'
+      showAlert("light mode enabled", 'success')
     }
   }
 
@@ -36,7 +50,7 @@ function App() {
       <Alert alert={alert} />
       {/* <Routes> */}
 
-      <TextForm heading='Enter The Text To Analyze' mode={Mode} />
+      <TextForm showAlert={showAlert} heading='Enter The Text To Analyze' mode={Mode} />
       {/* <Route path="/" element={<TextForm showAlert={showAlert} heading='Enter The Text To Analyze' mode={Mode} />} /> */}
       {/* <Route path="/About" element={<About title=" About Us" />} /> */}
       {/* </Routes>
